@@ -1,0 +1,7 @@
+rootProject.name = 'rool'
+
+def String[] modules = [
+        'rool-core'
+]
+
+include modules
