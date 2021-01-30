@@ -17,19 +17,23 @@ public class Main {
         Collection<LessThanComparator> lessThanComparators = Arrays.asList(longComparator, stringComparator, offsetDateTimeComparator);
         Collection<EqualsComparator> equalsComparators = Arrays.asList(longComparator, stringComparator, offsetDateTimeComparator);
 
-        Predicate p1 = new LessThanPredicate(lessThanComparators, new LiteralValue(5L), new LiteralValue(7L));
+        OffsetDateTime d1 = OffsetDateTime.parse("2007-12-03T10:15:30+01:00");
+        Value v1 = new LiteralValue(d1);
+        Value v2 = new LiteralValue(OffsetDateTime.parse("2017-12-23T10:15:30+01:00"));
+
+        Predicate p1 = new EqualsPredicate(equalsComparators, new LiteralValue(3L), new DayOfMonthFunction(new ContextValue("date")));
         Predicate p2 = new LessThanPredicate(lessThanComparators, new LiteralValue("abc"), new LiteralValue("def"));
         Predicate p3 = new EqualsPredicate(equalsComparators, new ContextValue("fruit"), new LiteralValue("apple"));
-        Predicate p4 = new LessThanPredicate(lessThanComparators, new LiteralValue(OffsetDateTime.parse("2007-12-03T10:15:30+01:00")),
-                new LiteralValue(OffsetDateTime.parse("2017-12-03T10:15:30+01:00")));
+        Predicate p4 = new LessThanPredicate(lessThanComparators, v1, v2);
 
         Predicate p = new AndPredicate(Arrays.asList(p1, p2, p3, p4));
 
         Map<String, Object> values = new HashMap<>();
         values.put("fruit", "apple");
+        values.put("date", d1);
+
         Context context = new MapContext(values);
         System.out.println(p.evaluate(context));
+
     }
-
-
 }
