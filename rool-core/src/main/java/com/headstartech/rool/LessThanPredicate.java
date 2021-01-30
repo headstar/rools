@@ -1,28 +1,24 @@
 package com.headstartech.rool;
 
-import java.util.List;
+import java.util.Collection;
+import java.util.stream.Collectors;
 
-public class LessThanPredicate implements Predicate {
+public class LessThanPredicate extends BinaryComparisonPredicate {
 
-    private final List<LessThanComparator> comparators;
-    private final Value a;
-    private final Value b;
+    public LessThanPredicate(Collection<LessThanComparator> comparators, Value a, Value b) {
+        super(comparators.stream().map(e -> {
+            return new BinaryComparator() {
+                @Override
+                public boolean supports(Object a, Object b) {
+                    return e.supportsLessThan(a, b);
+                }
 
-    public LessThanPredicate(List<LessThanComparator> comparators, Value a, Value b) {
-        this.comparators = comparators;
-        this.a = a;
-        this.b = b;
+                @Override
+                public boolean evaluate(Object a, Object b) {
+                    return e.evaluateLessThan(a, b);
+                }
+            };
+        }).collect(Collectors.toList()), a, b);
     }
 
-    @Override
-    public boolean evaluate(Context context) {
-        Object evaluatedA = a.evaluate(context);
-        Object evaluatedB = b.evaluate(context);
-        for(LessThanComparator e : comparators) {
-            if(e.supportsLessThan(evaluatedA, evaluatedB)) {
-                return e.evaluateLessThan(a, b);
-            }
-        }
-        throw new NotSupportedException();
-    }
 }
