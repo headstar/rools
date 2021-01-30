@@ -20,7 +20,7 @@ public class BinaryComparisonPredicate implements Predicate {
         Object evaluatedB = b.evaluate(context);
         for(BinaryComparator e : comparators) {
             if(e.supports(evaluatedA, evaluatedB)) {
-                return e.evaluate(a, b);
+                return e.evaluate(evaluatedA, evaluatedB);
             }
         }
         return onNotSupported();
