@@ -3,26 +3,31 @@ package com.headstartech.rool;
 public class StringComparator implements LessThanComparator, EqualsComparator {
 
     @Override
-    public boolean evaluateLessThan(Object a, Object b) {
-        return ((String) a).compareTo((String) b) < 0;
+    public boolean evaluateLessThan(Value a, Value b) {
+        return toString(a).compareTo(toString(b)) < 0;
     }
 
     @Override
-    public boolean evaluateEquals(Object a, Object b) {
-        return ((String) a).compareTo((String) b) == 0;
+    public boolean evaluateEquals(Value a, Value b) {
+        return toString(a).equals(toString(b));
     }
 
     @Override
-    public boolean supportsLessThan(Object a, Object b) {
+    public boolean supportsLessThan(Value a, Value b) {
         return supports(a, b);
     }
 
     @Override
-    public boolean supportsEquals(Object a, Object b) {
+    public boolean supportsEquals(Value a, Value b) {
         return supports(a, b);
     }
-    
-    protected boolean supports(Object a, Object b) {
-        return a instanceof String && b instanceof String;
+
+    protected boolean supports(Value a, Value b) {
+        return (a instanceof StringLiteralValue)
+                || (b instanceof StringLiteralValue);
+    }
+
+    protected String toString(Value o) {
+        return ((StringLiteralValue) o).get();
     }
 }

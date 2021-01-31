@@ -16,8 +16,8 @@ public class BinaryComparisonPredicate implements Predicate {
 
     @Override
     public boolean evaluate(Context context) {
-        Object evaluatedA = a.evaluate(context);
-        Object evaluatedB = b.evaluate(context);
+        Value evaluatedA = a.evaluate(context);
+        Value evaluatedB = b.evaluate(context);
         for(BinaryComparator e : comparators) {
             if(e.supports(evaluatedA, evaluatedB)) {
                 return e.evaluate(evaluatedA, evaluatedB);

@@ -2,7 +2,7 @@ package com.headstartech.rool;
 
 public interface LessThanComparator {
 
-    boolean supportsLessThan(Object a, Object b);
+    boolean supportsLessThan(Value a, Value b);
 
-    boolean evaluateLessThan(Object a, Object b);
+    boolean evaluateLessThan(Value a, Value b);
 }

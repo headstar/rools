@@ -1,16 +1,22 @@
 package com.headstartech.rool;
 
-public class LiteralValue implements Value {
+public abstract class LiteralValue<T> implements Value {
 
-    private final Object o;
+    private final T o;
+    private final Class<T> clazz;
 
-    public LiteralValue(Object o ) {
+    public LiteralValue(T o, Class<T> clazz) {
         this.o = o;
+        this.clazz = clazz;
     }
 
     @Override
-    public Object evaluate(Context context) {
-        return o;
+    public Value evaluate(Context context) {
+        return this;
+    }
+
+    public T get() {
+        return clazz.cast(o);
     }
 
 }

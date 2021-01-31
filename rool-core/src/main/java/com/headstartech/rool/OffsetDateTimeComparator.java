@@ -6,26 +6,31 @@ import java.time.OffsetDateTime;
 public class OffsetDateTimeComparator implements LessThanComparator, EqualsComparator {
 
     @Override
-    public boolean evaluateLessThan(Object a, Object b) {
-        return ((OffsetDateTime) a).compareTo((OffsetDateTime) b) < 0;
+    public boolean evaluateLessThan(Value a, Value b) {
+        return toOffsetDateTime(a).compareTo(toOffsetDateTime(b)) < 0;
     }
 
     @Override
-    public boolean evaluateEquals(Object a, Object b) {
-        return ((OffsetDateTime) a).compareTo((OffsetDateTime) b) == 0;
+    public boolean evaluateEquals(Value a, Value b) {
+        return toOffsetDateTime(a).equals(toOffsetDateTime(b));
     }
 
     @Override
-    public boolean supportsLessThan(Object a, Object b) {
+    public boolean supportsLessThan(Value a, Value b) {
         return supports(a, b);
     }
 
     @Override
-    public boolean supportsEquals(Object a, Object b) {
+    public boolean supportsEquals(Value a, Value b) {
         return supports(a, b);
     }
-    
-    protected boolean supports(Object a, Object b) {
-        return a instanceof OffsetDateTime && b instanceof OffsetDateTime;
+
+    protected boolean supports(Value a, Value b) {
+        return (a instanceof OffsetDateTimeLiteralValue)
+                || (b instanceof OffsetDateTimeLiteralValue);
+    }
+
+    protected OffsetDateTime toOffsetDateTime(Value o) {
+        return ((OffsetDateTimeLiteralValue) o).get();
     }
 }

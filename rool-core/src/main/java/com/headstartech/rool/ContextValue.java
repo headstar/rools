@@ -9,8 +9,8 @@ public class ContextValue implements Value {
     }
 
     @Override
-    public Object evaluate(Context context) {
-        Object o = context.get(key);
+    public LiteralValue<?> evaluate(Context context) {
+        LiteralValue<?> o = context.get(key);
         if(o == null) {
             throw new ValueNotFoundException();
         }

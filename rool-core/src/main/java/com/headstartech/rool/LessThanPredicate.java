@@ -9,12 +9,12 @@ public class LessThanPredicate extends BinaryComparisonPredicate {
         super(comparators.stream().map(e -> {
             return new BinaryComparator() {
                 @Override
-                public boolean supports(Object a, Object b) {
+                public boolean supports(Value a, Value b) {
                     return e.supportsLessThan(a, b);
                 }
 
                 @Override
-                public boolean evaluate(Object a, Object b) {
+                public boolean evaluate(Value a, Value b) {
                     return e.evaluateLessThan(a, b);
                 }
             };

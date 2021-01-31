@@ -9,12 +9,12 @@ public class EqualsPredicate extends BinaryComparisonPredicate {
         super(comparators.stream().map(e -> {
             return new BinaryComparator() {
                 @Override
-                public boolean supports(Object a, Object b) {
+                public boolean supports(Value a, Value b) {
                     return e.supportsEquals(a, b);
                 }
 
                 @Override
-                public boolean evaluate(Object a, Object b) {
+                public boolean evaluate(Value a, Value b) {
                     return e.evaluateEquals(
                             a, b);
                 }

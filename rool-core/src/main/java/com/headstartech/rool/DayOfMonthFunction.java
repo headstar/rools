@@ -11,11 +11,11 @@ public class DayOfMonthFunction implements Value {
     }
 
     @Override
-    public Object evaluate(Context context) {
-        Object evaluatedValue = value.evaluate(context);
-        if(evaluatedValue instanceof OffsetDateTime) {
-            OffsetDateTime t = (OffsetDateTime) evaluatedValue;
-            return t.getDayOfMonth();
+    public LiteralValue<Long> evaluate(Context context) {
+        Value evaluatedValue = value.evaluate(context);
+        if(evaluatedValue instanceof OffsetDateTimeLiteralValue) {
+            OffsetDateTime t = ((OffsetDateTimeLiteralValue) evaluatedValue).get();
+            return new LongLiteralValue(t.getDayOfMonth());
         } else {
             throw new InvalidTypeException();
         }

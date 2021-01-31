@@ -18,19 +18,19 @@ public class Main {
         Collection<EqualsComparator> equalsComparators = Arrays.asList(longComparator, stringComparator, offsetDateTimeComparator);
 
         OffsetDateTime d1 = OffsetDateTime.parse("2007-12-03T10:15:30+01:00");
-        Value v1 = new LiteralValue(d1);
-        Value v2 = new LiteralValue(OffsetDateTime.parse("2017-12-23T10:15:30+01:00"));
+        Value v1 = new OffsetDateTimeLiteralValue(d1);
+        Value v2 = new OffsetDateTimeLiteralValue(OffsetDateTime.parse("2017-12-23T10:15:30+01:00"));
 
-        Predicate p1 = new EqualsPredicate(equalsComparators, new LiteralValue(3L), new DayOfMonthFunction(new ContextValue("date")));
-        Predicate p2 = new LessThanPredicate(lessThanComparators, new LiteralValue("abc"), new LiteralValue("def"));
-        Predicate p3 = new EqualsPredicate(equalsComparators, new ContextValue("fruit"), new LiteralValue("apple"));
+        Predicate p1 = new EqualsPredicate(equalsComparators, new LongLiteralValue(3), new DayOfMonthFunction(new ContextValue("date")));
+        Predicate p2 = new LessThanPredicate(lessThanComparators, new StringLiteralValue("abc"), new StringLiteralValue("def"));
+        Predicate p3 = new EqualsPredicate(equalsComparators, new ContextValue("fruit"), new StringLiteralValue("apple"));
         Predicate p4 = new LessThanPredicate(lessThanComparators, v1, v2);
 
         Predicate p = new AndPredicate(Arrays.asList(p1, p2, p3, p4));
 
-        Map<String, Object> values = new HashMap<>();
-        values.put("fruit", "apple");
-        values.put("date", d1);
+        Map<String, LiteralValue<?>> values = new HashMap<>();
+        values.put("fruit", new StringLiteralValue("apple"));
+        values.put("date", new OffsetDateTimeLiteralValue(d1));
 
         Context context = new MapContext(values);
         System.out.println(p.evaluate(context));
