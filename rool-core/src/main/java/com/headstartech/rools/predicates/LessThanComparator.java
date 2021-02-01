@@ -1,4 +1,6 @@
-package com.headstartech.rools;
+package com.headstartech.rools.predicates;
+
+import com.headstartech.rools.Value;
 
 public interface LessThanComparator {
 

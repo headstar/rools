@@ -1,4 +1,7 @@
-package com.headstartech.rools;
+package com.headstartech.rools.values;
+
+import com.headstartech.rools.Context;
+import com.headstartech.rools.Value;
 
 public abstract class LiteralValue<T> implements Value {
 

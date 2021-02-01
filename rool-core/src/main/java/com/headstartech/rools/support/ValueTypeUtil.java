@@ -1,4 +1,7 @@
-package com.headstartech.rools;
+package com.headstartech.rools.support;
+
+import com.headstartech.rools.InvalidTypeException;
+import com.headstartech.rools.Value;
 
 public class ValueTypeUtil {
 

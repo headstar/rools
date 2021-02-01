@@ -1,4 +1,8 @@
-package com.headstartech.rools;
+package com.headstartech.rools.values;
+
+import com.headstartech.rools.Context;
+import com.headstartech.rools.Value;
+import com.headstartech.rools.ValueNotFoundException;
 
 public class ContextValue implements Value {
 

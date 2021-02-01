@@ -1,4 +1,6 @@
-package com.headstartech.rools;
+package com.headstartech.rools.predicates;
+
+import com.headstartech.rools.Value;
 
 import java.util.Collection;
 import java.util.stream.Collectors;

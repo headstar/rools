@@ -1,4 +1,4 @@
-package com.headstartech.rools;
+package com.headstartech.rools.values;
 
 public class StringLiteralValue  extends LiteralValue<String> {
 

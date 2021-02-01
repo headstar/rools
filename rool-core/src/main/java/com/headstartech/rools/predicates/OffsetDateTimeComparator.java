@@ -1,5 +1,8 @@
-package com.headstartech.rools;
+package com.headstartech.rools.predicates;
 
+
+import com.headstartech.rools.Value;
+import com.headstartech.rools.values.OffsetDateTimeLiteralValue;
 
 import java.time.OffsetDateTime;
 

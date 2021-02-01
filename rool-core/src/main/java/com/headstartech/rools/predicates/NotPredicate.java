@@ -1,4 +1,7 @@
-package com.headstartech.rools;
+package com.headstartech.rools.predicates;
+
+import com.headstartech.rools.Context;
+import com.headstartech.rools.Predicate;
 
 public class NotPredicate implements Predicate {
 

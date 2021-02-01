@@ -1,4 +1,9 @@
-package com.headstartech.rools;
+package com.headstartech.rools.predicates;
+
+import com.headstartech.rools.Context;
+import com.headstartech.rools.NotSupportedException;
+import com.headstartech.rools.Predicate;
+import com.headstartech.rools.Value;
 
 import java.util.Collection;
 
