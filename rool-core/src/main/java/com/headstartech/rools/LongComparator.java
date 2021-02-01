@@ -1,4 +1,4 @@
-package com.headstartech.rool;
+package com.headstartech.rools;
 
 public class LongComparator implements LessThanComparator, EqualsComparator {
 

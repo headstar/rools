@@ -1,4 +1,4 @@
-package com.headstartech.rool;
+package com.headstartech.rools;
 
 interface BinaryComparator {
 

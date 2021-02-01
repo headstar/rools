@@ -1,6 +1,4 @@
-package com.headstartech.rool;
-
-import java.util.List;
+package com.headstartech.rools;
 
 public interface Predicate {
 
