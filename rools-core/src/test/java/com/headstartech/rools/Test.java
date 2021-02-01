@@ -14,10 +14,10 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Main {
+public class Test {
 
-    public static void main(String[] args) {
-
+    @org.junit.jupiter.api.Test
+    public void test() {
         LongComparator longComparator = new LongComparator();
         StringComparator stringComparator = new StringComparator();
         OffsetDateTimeComparator offsetDateTimeComparator = new OffsetDateTimeComparator();
@@ -42,6 +42,5 @@ public class Main {
 
         Context context = new MapContext(values);
         System.out.println(p.evaluate(context));
-
     }
 }

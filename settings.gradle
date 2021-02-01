@@ -1,7 +1,7 @@
-rootProject.name = 'rool'
+rootProject.name = 'rools'
 
 def String[] modules = [
-        'rool-core'
+        'rools-core'
 ]
 
 include modules
