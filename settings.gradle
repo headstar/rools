@@ -1,6 +1,5 @@
-rootProject.name = 'rools'
 
-def String[] modules = [
+String[] modules = [
         'rools-core'
 ]
 
