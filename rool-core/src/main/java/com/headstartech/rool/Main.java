@@ -28,7 +28,7 @@ public class Main {
 
         Predicate p = new AndPredicate(Arrays.asList(p1, p2, p3, p4));
 
-        Map<String, LiteralValue<?>> values = new HashMap<>();
+        Map<String, Value> values = new HashMap<>();
         values.put("fruit", new StringLiteralValue("apple"));
         values.put("date", new OffsetDateTimeLiteralValue(d1));
 
