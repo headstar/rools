@@ -26,8 +26,8 @@ public class LongComparator implements LessThanComparator, EqualsComparator {
     }
 
     protected boolean supports(Value a, Value b) {
-        return (a instanceof LongLiteralValue)
-            || (b instanceof LongLiteralValue);
+        return (a instanceof LongLiteralValue) && (((LongLiteralValue) a).get() != null)
+            && (b instanceof LongLiteralValue) && (((LongLiteralValue) b).get() != null);
     }
 
     protected Long toLong(Value o) {

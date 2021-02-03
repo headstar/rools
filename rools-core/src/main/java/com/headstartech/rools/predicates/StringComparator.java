@@ -26,8 +26,8 @@ public class StringComparator implements LessThanComparator, EqualsComparator {
     }
 
     protected boolean supports(Value a, Value b) {
-        return (a instanceof StringLiteralValue)
-                || (b instanceof StringLiteralValue);
+        return (a instanceof StringLiteralValue) && ((StringLiteralValue) a).get() != null
+                && (b instanceof StringLiteralValue) && ((StringLiteralValue) b).get() != null;
     }
 
     protected String toString(Value o) {

@@ -29,8 +29,8 @@ public class OffsetDateTimeComparator implements LessThanComparator, EqualsCompa
     }
 
     protected boolean supports(Value a, Value b) {
-        return (a instanceof OffsetDateTimeLiteralValue)
-                || (b instanceof OffsetDateTimeLiteralValue);
+        return (a instanceof OffsetDateTimeLiteralValue) && ((OffsetDateTimeLiteralValue) a).get() != null
+                && (b instanceof OffsetDateTimeLiteralValue) && ((OffsetDateTimeLiteralValue) b).get() != null;
     }
 
     protected OffsetDateTime toOffsetDateTime(Value o) {
