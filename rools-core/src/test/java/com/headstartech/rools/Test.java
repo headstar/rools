@@ -10,7 +10,9 @@ import com.headstartech.rools.factory.CompositeValueFactory;
 import com.headstartech.rools.factory.LessThanPredicateFactory;
 import com.headstartech.rools.factory.LongValueFactory;
 import com.headstartech.rools.factory.MapPredicateFactory;
+import com.headstartech.rools.factory.NotOperatorPredicateFactory;
 import com.headstartech.rools.factory.OperatorPredicateFactory;
+import com.headstartech.rools.factory.OrOperatorPredicateFactory;
 import com.headstartech.rools.factory.StringValueFactory;
 import com.headstartech.rools.factory.ValueFactory;
 import com.headstartech.rools.functions.DayOfMonthFunction;
@@ -73,7 +75,30 @@ public class Test {
     @org.junit.jupiter.api.Test
     public void predicateTest() throws JsonProcessingException {
         ObjectMapper om = new ObjectMapper();
-        String doc = "{\"and\":[{\"lt\":{\"a\":\"${age}\",\"b\":18}},{\"lt\":{\"a\":\"${length}\",\"b\":\"190\"}}]}";
+        String doc = "{\n" +
+                "  \"and\": [\n" +
+                "    {\n" +
+                "      \"lt\": {\n" +
+                "        \"a\": \"${age}\",\n" +
+                "        \"b\": 18\n" +
+                "      }\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"lt\": {\n" +
+                "        \"a\": \"${length}\",\n" +
+                "        \"b\": 190\n" +
+                "      }\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"not\" : {\n" +
+                "        \"lt\": {\n" +
+                "          \"a\": 150,\n" +
+                "          \"b\": 190\n" +
+                "        }\n" +
+                "      }\n" +
+                "    }\n" +
+                "  ]\n" +
+                "}";
         TypeReference<Map<String, Object>> typeRef = new TypeReference<Map<String, Object>>() {};
         Map<String, Object> map = om.readValue(doc, typeRef);
 
@@ -86,10 +111,12 @@ public class Test {
 
         LessThanPredicateFactory lessThanPredicateFactory = new LessThanPredicateFactory(lessThanComparators,
                 valueFactory);
-        AndOperatorPredicateFactory andOperatorPredicateFactory = new AndOperatorPredicateFactory();
+
         Map<String, OperatorPredicateFactory> operatorPredicateFactoryMap = new HashMap<>();
         operatorPredicateFactoryMap.put("lt", lessThanPredicateFactory);
-        operatorPredicateFactoryMap.put("and", andOperatorPredicateFactory);
+        operatorPredicateFactoryMap.put("and", new AndOperatorPredicateFactory());
+        operatorPredicateFactoryMap.put("or", new OrOperatorPredicateFactory());
+        operatorPredicateFactoryMap.put("not", new NotOperatorPredicateFactory());
 
         MapPredicateFactory mapPredicateFactory = new MapPredicateFactory(operatorPredicateFactoryMap);
         Predicate p = mapPredicateFactory.createPredicate(map);
