@@ -5,19 +5,36 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.headstartech.rools.contexts.MapContext;
 import com.headstartech.rools.factory.AndOperatorPredicateFactory;
-import com.headstartech.rools.factory.DefaultValueFactory;
+import com.headstartech.rools.factory.BooleanValueFactory;
+import com.headstartech.rools.factory.CompositeValueFactory;
 import com.headstartech.rools.factory.LessThanPredicateFactory;
+import com.headstartech.rools.factory.LongValueFactory;
 import com.headstartech.rools.factory.MapPredicateFactory;
 import com.headstartech.rools.factory.OperatorPredicateFactory;
+import com.headstartech.rools.factory.StringValueFactory;
 import com.headstartech.rools.factory.ValueFactory;
 import com.headstartech.rools.functions.DayOfMonthFunction;
-import com.headstartech.rools.predicates.*;
-import com.headstartech.rools.values.*;
+import com.headstartech.rools.predicates.AndPredicate;
+import com.headstartech.rools.predicates.BooleanComparator;
+import com.headstartech.rools.predicates.EqualsComparator;
+import com.headstartech.rools.predicates.EqualsPredicate;
+import com.headstartech.rools.predicates.LessThanComparator;
+import com.headstartech.rools.predicates.LessThanPredicate;
+import com.headstartech.rools.predicates.LongComparator;
+import com.headstartech.rools.predicates.NotPredicate;
+import com.headstartech.rools.predicates.OffsetDateTimeComparator;
+import com.headstartech.rools.predicates.StringComparator;
+import com.headstartech.rools.values.BooleanLiteralValue;
+import com.headstartech.rools.values.ContextValue;
+import com.headstartech.rools.values.LongLiteralValue;
+import com.headstartech.rools.values.OffsetDateTimeLiteralValue;
+import com.headstartech.rools.values.StringLiteralValue;
 
 import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Test {
@@ -56,7 +73,7 @@ public class Test {
     @org.junit.jupiter.api.Test
     public void predicateTest() throws JsonProcessingException {
         ObjectMapper om = new ObjectMapper();
-        String doc = "{\"and\":[{\"lt\":{\"a\":\"${age}\",\"b\":18}},{\"lt\":{\"a\":\"${length}\",\"b\":190}}]}";
+        String doc = "{\"and\":[{\"lt\":{\"a\":\"${age}\",\"b\":18}},{\"lt\":{\"a\":\"${length}\",\"b\":\"190\"}}]}";
         TypeReference<Map<String, Object>> typeRef = new TypeReference<Map<String, Object>>() {};
         Map<String, Object> map = om.readValue(doc, typeRef);
 
@@ -64,7 +81,8 @@ public class Test {
         StringComparator stringComparator = new StringComparator();
         Collection<LessThanComparator> lessThanComparators = Arrays.asList(longComparator, stringComparator);
 
-        ValueFactory valueFactory = new DefaultValueFactory();
+        List<ValueFactory> valueFactories = Arrays.asList(new BooleanValueFactory(), new LongValueFactory(), new StringValueFactory());
+        ValueFactory valueFactory = new CompositeValueFactory(valueFactories);
 
         LessThanPredicateFactory lessThanPredicateFactory = new LessThanPredicateFactory(lessThanComparators,
                 valueFactory);
