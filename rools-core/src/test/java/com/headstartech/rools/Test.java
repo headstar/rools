@@ -7,6 +7,7 @@ import com.headstartech.rools.contexts.MapContext;
 import com.headstartech.rools.factory.AndOperatorPredicateFactory;
 import com.headstartech.rools.factory.BooleanValueFactory;
 import com.headstartech.rools.factory.CompositeValueFactory;
+import com.headstartech.rools.factory.EqualsPredicateFactory;
 import com.headstartech.rools.factory.LessThanPredicateFactory;
 import com.headstartech.rools.factory.LongValueFactory;
 import com.headstartech.rools.factory.MapPredicateFactory;
@@ -91,7 +92,7 @@ public class Test {
                 "    },\n" +
                 "    {\n" +
                 "      \"not\" : {\n" +
-                "        \"lt\": {\n" +
+                "        \"eq\": {\n" +
                 "          \"a\": 150,\n" +
                 "          \"b\": 190\n" +
                 "        }\n" +
@@ -105,15 +106,19 @@ public class Test {
         LongComparator longComparator = new LongComparator();
         StringComparator stringComparator = new StringComparator();
         Collection<LessThanComparator> lessThanComparators = Arrays.asList(longComparator, stringComparator);
+        Collection<EqualsComparator> equalsComparators = Arrays.asList(longComparator, stringComparator);
 
         List<ValueFactory> valueFactories = Arrays.asList(new BooleanValueFactory(), new LongValueFactory(), new StringValueFactory());
         ValueFactory valueFactory = new CompositeValueFactory(valueFactories);
 
         LessThanPredicateFactory lessThanPredicateFactory = new LessThanPredicateFactory(lessThanComparators,
                 valueFactory);
+        EqualsPredicateFactory equalsPredicateFactory = new EqualsPredicateFactory(equalsComparators,
+                valueFactory);
 
         Map<String, OperatorPredicateFactory> operatorPredicateFactoryMap = new HashMap<>();
         operatorPredicateFactoryMap.put("lt", lessThanPredicateFactory);
+        operatorPredicateFactoryMap.put("eq", equalsPredicateFactory);
         operatorPredicateFactoryMap.put("and", new AndOperatorPredicateFactory());
         operatorPredicateFactoryMap.put("or", new OrOperatorPredicateFactory());
         operatorPredicateFactoryMap.put("not", new NotOperatorPredicateFactory());
