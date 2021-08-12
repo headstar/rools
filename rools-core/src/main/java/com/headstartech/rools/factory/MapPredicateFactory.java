@@ -20,15 +20,11 @@ public class MapPredicateFactory {
     }
 
     private OperatorPredicateFactory findOperatorPredicateFactory(Map<String, Object> m, String operatorKey) {
-        if(m.keySet().size() == 1) {
-            OperatorPredicateFactory operatorPredicateFactory = operatorsPredicateFactories.get(operatorKey);
-            if(operatorPredicateFactory == null) {
-                throw new RuntimeException(String.format("no operator for %s found", operatorKey));
-            } else {
-                return operatorPredicateFactory;
-            }
+        OperatorPredicateFactory operatorPredicateFactory = operatorsPredicateFactories.get(operatorKey);
+        if(operatorPredicateFactory == null) {
+            throw new RuntimeException(String.format("no operator for %s found", operatorKey));
         } else {
-            throw new RuntimeException("Only one key expected");
+            return operatorPredicateFactory;
         }
     }
 
