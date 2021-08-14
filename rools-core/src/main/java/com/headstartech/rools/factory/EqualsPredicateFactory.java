@@ -25,6 +25,10 @@ public class EqualsPredicateFactory implements OperatorPredicateFactory {
         Map<String, Object> operands = (Map<String, Object>) o;
         Value a = valueFactory.createValue(operands.get("a"));
         Value b = valueFactory.createValue(operands.get("b"));
+        return createPredicate(a, b);
+    }
+
+    public Predicate createPredicate(Value a, Value b) {
         return new EqualsPredicate(comparators, a, b);
     }
 }

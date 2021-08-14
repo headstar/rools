@@ -8,6 +8,7 @@ import com.headstartech.rools.factory.AndOperatorPredicateFactory;
 import com.headstartech.rools.factory.BooleanValueFactory;
 import com.headstartech.rools.factory.CompositeValueFactory;
 import com.headstartech.rools.factory.EqualsPredicateFactory;
+import com.headstartech.rools.factory.InOperatorPredicateFactory;
 import com.headstartech.rools.factory.LessThanPredicateFactory;
 import com.headstartech.rools.factory.LongValueFactory;
 import com.headstartech.rools.factory.MapPredicateFactory;
@@ -79,9 +80,9 @@ public class Test {
         String doc = "{\n" +
                 "  \"and\": [\n" +
                 "    {\n" +
-                "      \"lt\": {\n" +
-                "        \"a\": \"${age}\",\n" +
-                "        \"b\": 18\n" +
+                "      \"eq\": {\n" +
+                "        \"a\": \"${name}\",\n" +
+                "        \"b\": \"john\"\n" +
                 "      }\n" +
                 "    },\n" +
                 "    {\n" +
@@ -92,10 +93,16 @@ public class Test {
                 "    },\n" +
                 "    {\n" +
                 "      \"not\" : {\n" +
-                "        \"eq\": {\n" +
+                "        \"lt\": {\n" +
                 "          \"a\": 150,\n" +
                 "          \"b\": 190\n" +
                 "        }\n" +
+                "      }\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"in\" : {\n" +
+                "        \"elem\" : \"apple\",\n" +
+                "        \"coll\" : [\"banana\", \"pear\"]\n" +
                 "      }\n" +
                 "    }\n" +
                 "  ]\n" +
@@ -122,6 +129,7 @@ public class Test {
         operatorPredicateFactoryMap.put("and", new AndOperatorPredicateFactory());
         operatorPredicateFactoryMap.put("or", new OrOperatorPredicateFactory());
         operatorPredicateFactoryMap.put("not", new NotOperatorPredicateFactory());
+        operatorPredicateFactoryMap.put("in", new InOperatorPredicateFactory(equalsPredicateFactory, valueFactory));
 
         MapPredicateFactory mapPredicateFactory = new MapPredicateFactory(operatorPredicateFactoryMap);
         Predicate p = mapPredicateFactory.createPredicate(map);
