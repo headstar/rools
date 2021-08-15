@@ -22,6 +22,10 @@ public class LessThanPredicateFactory implements OperatorPredicateFactory {
         Map<String, Object> operands = FactoryUtil.toMap(o);
         Value a = valueFactory.createValue(operands.get("a"));
         Value b = valueFactory.createValue(operands.get("b"));
+        return createPredicate(a, b);
+    }
+
+    public Predicate createPredicate(Value a, Value b) {
         return new LessThanPredicate(lessThanComparators, a, b);
     }
 }

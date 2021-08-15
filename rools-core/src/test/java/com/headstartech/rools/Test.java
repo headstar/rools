@@ -8,6 +8,7 @@ import com.headstartech.rools.factory.AndOperatorPredicateFactory;
 import com.headstartech.rools.factory.BooleanValueFactory;
 import com.headstartech.rools.factory.CompositeValueFactory;
 import com.headstartech.rools.factory.EqualsPredicateFactory;
+import com.headstartech.rools.factory.GreaterThanPredicateFactory;
 import com.headstartech.rools.factory.InOperatorPredicateFactory;
 import com.headstartech.rools.factory.LessThanPredicateFactory;
 import com.headstartech.rools.factory.LongValueFactory;
@@ -86,7 +87,7 @@ public class Test {
                 "      }\n" +
                 "    },\n" +
                 "    {\n" +
-                "      \"lt\": {\n" +
+                "      \"gt\": {\n" +
                 "        \"a\": \"${length}\",\n" +
                 "        \"b\": 190\n" +
                 "      }\n" +
@@ -130,6 +131,7 @@ public class Test {
 
         operatorPredicateFactoryMap.put("lt", lessThanPredicateFactory);
         operatorPredicateFactoryMap.put("eq", equalsPredicateFactory);
+        operatorPredicateFactoryMap.put("gt", new GreaterThanPredicateFactory(equalsPredicateFactory, lessThanPredicateFactory, valueFactory));
         operatorPredicateFactoryMap.put("in", new InOperatorPredicateFactory(equalsPredicateFactory, valueFactory));
 
         MapPredicateFactory mapPredicateFactory = new MapPredicateFactory(operatorPredicateFactoryMap);
