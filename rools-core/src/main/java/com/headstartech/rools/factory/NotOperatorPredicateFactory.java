@@ -8,10 +8,7 @@ import java.util.Map;
 public class NotOperatorPredicateFactory implements OperatorPredicateFactory {
 
     public Predicate createPredicate(MapPredicateFactory mapPredicateFactory, Object o) {
-        if(!(o instanceof Map)) {
-            throw new RuntimeException(String.format("Expected Map, got %s", o.getClass().getSimpleName()));
-        }
-        Map<String, Object> operand = (Map<String, Object>) o;
+        Map<String, Object> operand = FactoryUtil.toMap(o);
         return new NotPredicate(mapPredicateFactory.createPredicate(operand));
     }
 }

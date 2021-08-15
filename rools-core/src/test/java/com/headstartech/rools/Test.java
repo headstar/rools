@@ -124,11 +124,12 @@ public class Test {
                 valueFactory);
 
         Map<String, OperatorPredicateFactory> operatorPredicateFactoryMap = new HashMap<>();
-        operatorPredicateFactoryMap.put("lt", lessThanPredicateFactory);
-        operatorPredicateFactoryMap.put("eq", equalsPredicateFactory);
         operatorPredicateFactoryMap.put("and", new AndOperatorPredicateFactory());
         operatorPredicateFactoryMap.put("or", new OrOperatorPredicateFactory());
         operatorPredicateFactoryMap.put("not", new NotOperatorPredicateFactory());
+
+        operatorPredicateFactoryMap.put("lt", lessThanPredicateFactory);
+        operatorPredicateFactoryMap.put("eq", equalsPredicateFactory);
         operatorPredicateFactoryMap.put("in", new InOperatorPredicateFactory(equalsPredicateFactory, valueFactory));
 
         MapPredicateFactory mapPredicateFactory = new MapPredicateFactory(operatorPredicateFactoryMap);

@@ -19,10 +19,7 @@ public class EqualsPredicateFactory implements OperatorPredicateFactory {
     }
 
     public Predicate createPredicate(MapPredicateFactory mapPredicateFactory, Object o) {
-        if(!(o instanceof Map)) {
-            throw new RuntimeException(String.format("Expected Map, got %s", o.getClass().getSimpleName()));
-        }
-        Map<String, Object> operands = (Map<String, Object>) o;
+        Map<String, Object> operands = FactoryUtil.toMap(o);
         Value a = valueFactory.createValue(operands.get("a"));
         Value b = valueFactory.createValue(operands.get("b"));
         return createPredicate(a, b);

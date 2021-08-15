@@ -4,9 +4,9 @@ import com.headstartech.rools.Predicate;
 import com.headstartech.rools.Value;
 import com.headstartech.rools.predicates.OrPredicate;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static com.headstartech.rools.factory.FactoryUtil.getListOrThrow;
 import static com.headstartech.rools.factory.FactoryUtil.getOrThrow;
@@ -25,14 +25,11 @@ public class InOperatorPredicateFactory implements OperatorPredicateFactory {
     public Predicate createPredicate(MapPredicateFactory mapPredicateFactory, Object o) {
         Map<String, Object> operands = FactoryUtil.toMap(o);
         Value elem = valueFactory.createValue(getOrThrow(operands, "elem"));
-
-        List<Predicate> orPredicates = new ArrayList<>();
-        List<Object> coll = getListOrThrow(operands, "coll");
-        for(Object p : coll) {
-            Value pv = valueFactory.createValue(p);
-            Predicate eqPred = equalsPredicateFactory.createPredicate(elem, pv);
-            orPredicates.add(eqPred);
-        }
+        List<Predicate> orPredicates = getListOrThrow(operands, "coll")
+                .stream()
+                .map(valueFactory::createValue)
+                .map(e -> equalsPredicateFactory.createPredicate(elem, e))
+                .collect(Collectors.toList());
         return new OrPredicate(orPredicates);
     }
 }
