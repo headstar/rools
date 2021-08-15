@@ -16,7 +16,7 @@ public class ContextValue implements Value {
     public Value evaluate(Context context) {
         Value o = context.get(key);
         if(o == null) {
-            throw new ValueNotFoundException();
+            throw new ValueNotFoundException(String.format("Context value not found: key=%s", key));
         }
         return o;
     }

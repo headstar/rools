@@ -7,6 +7,7 @@ import com.headstartech.rools.contexts.MapContext;
 import com.headstartech.rools.factory.AndOperatorPredicateFactory;
 import com.headstartech.rools.factory.BooleanValueFactory;
 import com.headstartech.rools.factory.CompositeValueFactory;
+import com.headstartech.rools.factory.ContextValueFactory;
 import com.headstartech.rools.factory.EqualsPredicateFactory;
 import com.headstartech.rools.factory.GreaterThanPredicateFactory;
 import com.headstartech.rools.factory.InOperatorPredicateFactory;
@@ -89,7 +90,7 @@ public class Test {
                 "    {\n" +
                 "      \"gt\": {\n" +
                 "        \"a\": \"${length}\",\n" +
-                "        \"b\": 190\n" +
+                "        \"b\": \"190\"\n" +
                 "      }\n" +
                 "    },\n" +
                 "    {\n" +
@@ -116,7 +117,11 @@ public class Test {
         Collection<LessThanComparator> lessThanComparators = Arrays.asList(longComparator, stringComparator);
         Collection<EqualsComparator> equalsComparators = Arrays.asList(longComparator, stringComparator);
 
-        List<ValueFactory> valueFactories = Arrays.asList(new BooleanValueFactory(), new LongValueFactory(), new StringValueFactory());
+        List<ValueFactory> valueFactories = Arrays.asList(
+                new BooleanValueFactory(),
+                new LongValueFactory(),
+                new ContextValueFactory(),
+                new StringValueFactory());
         ValueFactory valueFactory = new CompositeValueFactory(valueFactories);
 
         LessThanPredicateFactory lessThanPredicateFactory = new LessThanPredicateFactory(lessThanComparators,
@@ -136,5 +141,13 @@ public class Test {
 
         MapPredicateFactory mapPredicateFactory = new MapPredicateFactory(operatorPredicateFactoryMap);
         Predicate p = mapPredicateFactory.createPredicate(map);
+
+        Map<String, Value> values = new HashMap<>();
+        values.put("name", new StringLiteralValue("john"));
+        values.put("length", new StringLiteralValue("200"));
+
+        Context context = new MapContext(values);
+        System.out.println(p.evaluate(context));
+
     }
 }
